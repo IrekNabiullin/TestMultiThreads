@@ -3,6 +3,16 @@ public class MyClass01 {
         for (int i = 1; i < 5; i++) {
             new Thread(new MyThread(i)).start();
         }
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("Hello 1 from thread " +
+                        Thread.currentThread().getName());
+            }
+        }).start();
+        new Thread( () -> System.out.println("Hello 2 from thread " +
+                Thread.currentThread().getName())).start();
     }
 }
 

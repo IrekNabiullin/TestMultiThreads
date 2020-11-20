@@ -17,14 +17,14 @@ public class MyCallable implements Callable<String> {
         return Thread.currentThread().getName();
     }
 
-    public static void main(String args[]){
-        //Получаем ExecutorService утилитного класса Executors с размером gпула потоков равному 10
+    public static void main(String args[]) {
+        //Получаем ExecutorService утилитного класса Executors с размером пула потоков равному 10
         ExecutorService executor = Executors.newFixedThreadPool(10);
         //создаем список с Future, которые ассоциированы с Callable
         List<Future<String>> list = new ArrayList<Future<String>>();
         // создаем экземпляр MyCallable
         Callable<String> callable = new MyCallable();
-        for(int i=0; i< 100; i++){
+        for (int i = 0; i < 100; i++) {
             //сабмитим Callable таски, которые будут
             //выполнены пулом потоков
             Future<String> future = executor.submit(callable);
@@ -32,12 +32,12 @@ public class MyCallable implements Callable<String> {
             //мы сможем получить результат выполнения
             list.add(future);
         }
-        for(Future<String> fut : list){
+        for (Future<String> fut : list) {
             try {
                 // печатаем в консоль возвращенное значение Future
                 // будет задержка в 1 секунду, потому что Future.get()
-                // ждет пока таск закончит выполнение
-                System.out.println(new Date()+ "::" + fut.get());
+                // ждет пока таска закончит выполнение
+                System.out.println(new Date() + "::" + fut.get());
             } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
             }
